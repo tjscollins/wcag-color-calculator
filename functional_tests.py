@@ -2,9 +2,6 @@ from unittest import TestCase, main
 
 from selenium import webdriver
 
-browser = webdriver.Firefox()
-browser.get('http://localhost:8000')
-
 
 class NewVisitorTest(TestCase):
     """Test that page loads correctly with correct content"""
