@@ -13,7 +13,7 @@ class NewVisitorTest(TestCase):
         self.browser = webdriver.Firefox()
 
     def tearDown(self):
-        self.browser.close()
+        self.browser.quit()
 
     def test_can_enter_a_color_into_form(self):
         # As an unauthenticated user I can load the page
