@@ -1,7 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render
 # Create your views here.
 
 
 def main_view(request):
-    return HttpResponse('<!DOCTYPE html><html><title>WCAG Color Calculator</title></html>')
+    page_data = {
+        'page': {
+            'title': 'WCAG Color Calculator'
+        }
+    }
+    return render(request,
+                  "accessible_text_color/index.html",
+                  context=page_data)

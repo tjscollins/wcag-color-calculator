@@ -23,7 +23,7 @@ class NewVisitorTest(TestCase):
 
         # I see a form where I can enter a background color
         color_selector = self.browser.find_element_by_css_selector(
-            '.bg-color-chooser')
+            '#bg-color')
         self.assertEqual(color_selector.get_attribute('placeholder'),
                          '#ffffff')
 
