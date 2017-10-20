@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accessible_text_color.views import main_view
+from accessible_text_color import views as text_color_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', main_view),
-    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^$', text_color_views.main_view),
+    url(r'^api/bg-color', text_color_views.post_bgcolor),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
