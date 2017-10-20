@@ -19,19 +19,36 @@
     </div>
 
     <div id="color-calculator" class="row">
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-4">
             <form id="bg-color-form" lpformnum="1">
                 <div class="form-group">
                     <label for="bg-color">Background Color</label>
                     <input type="color" id="bg-color" class="color-chooser form-control" value="#ffffff" />
                 </div>
+                <fieldset class="form-check form-check-inline">
+                    <legend>
+                        Target Standard:
+                    </legend>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="target-standards" id="aa-standard" value="aa" checked/> Level AA
+                    </label>
+                    <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="target-standards" id="aaa-standard" value="aaa" /> Level AAA
+                    </label>                        
+                </fieldset>
                 <div class="form-group">
                     <input type="submit" id="bg-submit" class="btn btn-primary form-control" value="Calculate Accessible Colors"/>
                 </div>
             </form>
         </div>
-        <div id="approved-colors" class="col-12 col-sm-6">
+        <div id="approved-colors" class="col-12 col-sm-8">
+            <div id="aa-colors">
 
+            </div>
+
+            <div id="aaa-colors">
+
+            </div>
         </div>
     </div>
 </div>
