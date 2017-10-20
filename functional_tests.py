@@ -1,6 +1,7 @@
 from unittest import TestCase, main
 
 from selenium import webdriver
+from django.http import HttpRequest
 
 
 class NewVisitorTest(TestCase):
@@ -28,10 +29,6 @@ class NewVisitorTest(TestCase):
                          '#ffffff')
 
         self.fail('Finish the tests')
-
-
-class BgColorAPITests(TestCase):
-    pass
 
 
 if __name__ == '__main__':
