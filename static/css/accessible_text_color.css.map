@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AAAA,EAAE,CAAC;EACC,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "../../accessible_text_color/assets/scss/accessible_text_color.scss",
+        "../../accessible_text_color/assets/scss/module/_main_content.scss"
+    ],
+    "names": [],
+    "file": "accessible_text_color.css"
+}
