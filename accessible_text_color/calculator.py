@@ -16,6 +16,17 @@ class Color():
         elif hsl is not None:
             raise TypeError('Color constructor expects hsl to be a tuple')
 
+    def __hash__(self):
+        return hash(self.rgb)
+
+    def __eq__(self, other):
+        return self.rgb == other.rgb
+
+    def __str__(self):
+        r, g, b = list(map(
+            lambda s: hex(s)[2:] if s >= 16 else '0' + hex(s)[2:], self.rgb))
+        return '#' + r + g + b
+
     def _convert_str_to_rgb(self, bg_color):
         return int(bg_color[1:3], 16), int(
             bg_color[3:5], 16), int(bg_color[5:7], 16)
@@ -48,10 +59,25 @@ class Color():
         return [Color(hsl=((h + 345) % 360, s, l)),
                 Color(hsl=((h + 15) % 360, s, l))]
 
+    def triadic_colors(self):
+        h, s, l = self.hsl()
+        return [Color(hsl=((h + 60) % 360, s, l)),
+                Color(hsl=((h + 120), s, l))]
+
+    def tint(self, n):
+        h, s, l = self.hsl()
+        l = l + n
+        return Color(hsl=(h, s, l if l <= 100 and l >= 0 else l % 100))
+
+    def tone(self, n):
+        h, s, l = self.hsl()
+        s = s + n
+        return Color(hsl=(h, s if s >= 0 and s <= 100 else s % 100, l))
+
 
 class TextColorCalculator():
 
-    def constrast(self, text_color, bg_color):
+    def contrast(self, text_color, bg_color):
         ratio = (text_color.luminance() + .05) / (bg_color.luminance() + .05)
 
         if ratio < 1:
@@ -60,7 +86,39 @@ class TextColorCalculator():
         return round(ratio, 1)
 
     def AA_textcolors(self, bg_color):
-        pass
+        def by_hue(color): return color.hsl()[0]
+
+        base_colors = []
+        for i in range(0, 100, 25):
+            base_colors.append(bg_color.tint(i))
+        for i in range(0, 100, 25):
+            for color in list(base_colors):
+                base_colors.append(color.tone(i))
+
+        initial_colors = []
+        for color in base_colors:
+            initial_colors.append(color.complementary_color())
+            initial_colors.extend(color.analogous_colors())
+            initial_colors.extend(color.triadic_colors())
+
+        color_options = list(initial_colors)
+
+        for i in range(0, 100, 10):
+            for color in initial_colors:
+                color_options.append(color.tint(i))
+                color_options.append(color.tone(i))
+
+        color_options = list(set(color_options))
+        color_options = list(
+            filter(lambda c: self.contrast(c, bg_color) >= 4.5, color_options))
+
+        color_options.sort(key=by_hue)
+        return color_options
 
     def AAA_textcolors(self, bg_color):
-        pass
+        def by_hue(color): return color.hsl()[0]
+
+        aaa_colors = list(filter(lambda c: self.contrast(
+            c, bg_color) >= 7, self.AA_textcolors(bg_color)))
+        aaa_colors.sort(key=by_hue)
+        return aaa_colors

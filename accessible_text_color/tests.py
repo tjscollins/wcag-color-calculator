@@ -100,13 +100,31 @@ class TextColorCalculatorTests(TestCase):
         calculator = TextColorCalculator()
 
         self.assertAlmostEqual(21,
-                               calculator.constrast(Color(rgb="#00000"),
-                                                    Color(hsl=(0, 0, 100))))
+                               calculator.contrast(Color(rgb="#00000"),
+                                                   Color(hsl=(0, 0, 100))))
 
         self.assertAlmostEqual(5,
-                               calculator.constrast(Color(rgb="#cc3922"),
-                                                    Color(hsl=(120, 50, 100))))
+                               calculator.contrast(Color(rgb="#cc3922"),
+                                                   Color(hsl=(120, 50, 100))))
 
         self.assertAlmostEqual(1,
-                               calculator.constrast(Color(rgb="#ffffff"),
-                                                    Color(hsl=(0, 0, 100))))
+                               calculator.contrast(Color(rgb="#ffffff"),
+                                                   Color(hsl=(0, 0, 100))))
+
+    def test_AA_textcolors(self):
+        bg_color = Color("#ff0000")
+        calculator = TextColorCalculator()
+        approved_colors = calculator.AA_textcolors(bg_color)
+
+        for color in approved_colors:
+            self.assertIsInstance(color, Color)
+            self.assertGreaterEqual(calculator.contrast(color, bg_color), 4.5)
+
+    def test_AAA_textcolors(self):
+        bg_color = Color("#00ff00")
+        calculator = TextColorCalculator()
+        approved_colors = calculator.AAA_textcolors(bg_color)
+
+        for color in approved_colors:
+            self.assertIsInstance(color, Color)
+            self.assertGreaterEqual(calculator.contrast(color, bg_color), 7)
