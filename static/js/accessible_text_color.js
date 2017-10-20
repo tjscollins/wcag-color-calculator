@@ -23,11 +23,12 @@ function buildColorList({ background_color: bgColor, aa_colors: A2Colors, aaa_co
     console.log(bgColor, A2Colors, A3Colors);
 
     let target = $('input[name=target-standards]:checked').val();
-    $(`#${target}-colors`).append(`<h2>WCAG 2.0 Level ${target.toUpperCase()} Color Combinations</h2>`);
 
     if (target === 'aa') {
+        $(`#${target}-colors`).append(`<h2>WCAG 2.0 Level ${target.toUpperCase()} Color Combinations <br>${A2Colors.length} Colors</h2>`);
         A2Colors.forEach(resultsTemplate(bgColor, target));
     } else if (target === 'aaa') {
+        $(`#${target}-colors`).append(`<h2>WCAG 2.0 Level ${target.toUpperCase()} Color Combinations <br>${A3Colors.length} Colors</h2>`);
         A3Colors.forEach(resultsTemplate(bgColor, target));
     }
 }
