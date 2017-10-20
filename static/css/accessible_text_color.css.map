@@ -1,9 +1,11 @@
 {
     "version": 3,
-    "mappings": "ACAA,AAAA,EAAE,CAAC;EACC,UAAU,EAAE,MAAM;CACrB",
+    "mappings": "ACAA,AAAA,iBAAiB,CAAC;EACd,UAAU,EAAE,IAAI;CACnB;;ACFD,AAAA,EAAE,CAAC;EACC,UAAU,EAAE,MAAM;CACrB;;ACFD,AAAA,IAAI,CAAC;EACD,KAAK,EAAE,GAAG;CACb;;AAED,AAAA,KAAK,CAAA,AAAA,IAAC,CAAK,OAAO,AAAZ,EAAc;EAChB,MAAM,EAAE,IAAI;CACf",
     "sources": [
         "../../accessible_text_color/assets/scss/accessible_text_color.scss",
-        "../../accessible_text_color/assets/scss/module/_main_content.scss"
+        "../../accessible_text_color/assets/scss/layout/_color_calculator.scss",
+        "../../accessible_text_color/assets/scss/module/_main_content.scss",
+        "../../accessible_text_color/assets/scss/module/_forms.scss"
     ],
     "names": [],
     "file": "accessible_text_color.css"

@@ -18,17 +18,21 @@
         </div>
     </div>
 
-    <div class="row">
-        <form lpformnum="1">
-            <p>Choose a background color: </p>
-            <div class="form-group">
-                <label for="bg-color">Background Color</label>
-                <input type="color" id="bg-color" class="color-chooser form-control" value="#ffffff" />
-            </div>
-            <div class="form-group">
-                <input type="submit" id="bg-submit" class="btn btn-primary" />
-            </div>
-        </form>
+    <div id="color-calculator" class="row">
+        <div class="col-12 col-sm-6">
+            <form lpformnum="1">
+                <div class="form-group">
+                    <label for="bg-color">Background Color</label>
+                    <input type="color" id="bg-color" class="color-chooser form-control" value="#ffffff" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" id="bg-submit" class="btn btn-primary form-control" value="Calculate Accessible Colors"/>
+                </div>
+            </form>
+        </div>
+        <div id="approved-colors" class="col-12 col-sm-6">
+
+        </div>
     </div>
 </div>
 {% endblock  %}
