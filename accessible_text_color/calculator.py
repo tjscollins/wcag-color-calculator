@@ -1,7 +1,10 @@
 import colorsys
+from math import floor
 
 
 class Color():
+    tolerance = 100
+
     def __init__(self, rgb=None, hsl=None):
         if isinstance(rgb, str):
             self.rgb = self._convert_str_to_rgb(rgb)
@@ -14,13 +17,23 @@ class Color():
         if isinstance(hsl, (tuple, list)):
             self.rgb = self._convert_hsl_to_rgb(hsl)
         elif hsl is not None:
-            raise TypeError('Color constructor expects hsl to be a tuple')
+            raise TypeError(
+                'Color constructor expects hsl to be a tuple or None')
 
     def __hash__(self):
-        return hash(self.rgb)
+        total = sum(self.rgb, 0)
+        return hash(floor(total / self.tolerance))
 
     def __eq__(self, other):
-        return self.rgb == other.rgb
+        r, g, b = self.rgb
+        x, y, z = other.rgb
+
+        diff = abs(r - x) + abs(g - y) + abs(z - x)
+
+        return diff <= self.tolerance or self.rgb == other.rgb
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def __str__(self):
         r, g, b = list(map(
@@ -86,9 +99,11 @@ class TextColorCalculator():
         return round(ratio, 1)
 
     def AA_textcolors(self, bg_color):
-        def by_hue(color): return color.hsl()[0]
+        def by_hue(color):
+            h, s, l = color.hsl()
+            return (h, l, s)
 
-        base_colors = []
+        base_colors = [Color('#000000'), Color('#ffffff')]
         for i in range(0, 100, 25):
             base_colors.append(bg_color.tint(i))
         for i in range(0, 100, 25):
@@ -108,16 +123,17 @@ class TextColorCalculator():
                 color_options.append(color.tint(i))
                 color_options.append(color.tone(i))
 
-        color_options = list(set(color_options))
         color_options = list(
             filter(lambda c: self.contrast(c, bg_color) >= 4.5, color_options))
 
+        color_options = list(set(color_options))
         color_options.sort(key=by_hue)
         return color_options
 
     def AAA_textcolors(self, bg_color):
-        def by_hue(color): return color.hsl()[0]
-
+        def by_hue(color):
+            h, s, l = color.hsl()
+            return (h, l, s)
         aaa_colors = list(filter(lambda c: self.contrast(
             c, bg_color) >= 7, self.AA_textcolors(bg_color)))
         aaa_colors.sort(key=by_hue)
