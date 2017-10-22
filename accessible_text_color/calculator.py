@@ -3,7 +3,7 @@ from math import floor
 
 
 class Color():
-    tolerance = 100
+    tolerance = 0
 
     def __init__(self, rgb=None, hsl=None):
         if isinstance(rgb, str):
@@ -21,8 +21,7 @@ class Color():
                 'Color constructor expects hsl to be a tuple or None')
 
     def __hash__(self):
-        total = sum(self.rgb, 0)
-        return hash(floor(total / self.tolerance))
+        return hash(self.rgb)
 
     def __eq__(self, other):
         r, g, b = self.rgb
@@ -89,6 +88,7 @@ class Color():
 
 
 class TextColorCalculator():
+    hues = list(range(0, 360, 10))
 
     def contrast(self, text_color, bg_color):
         ratio = (text_color.luminance() + .05) / (bg_color.luminance() + .05)
@@ -103,31 +103,27 @@ class TextColorCalculator():
             h, s, l = color.hsl()
             return (h, l, s)
 
-        base_colors = [Color('#000000'), Color('#ffffff')]
-        for i in range(0, 100, 25):
-            base_colors.append(bg_color.tint(i))
-        for i in range(0, 100, 25):
+        base_colors = [Color('#000000')]
+        base_colors.extend(
+            [Color(hsl=(hue, 100, 50)) for hue in self.hues])
+
+        tints = []
+        for i in range(-50, 51, 10):
             for color in list(base_colors):
-                base_colors.append(color.tone(i))
+                tints.append(color.tint(i))
+        base_colors.extend(list(set(tints)))
 
-        initial_colors = []
-        for color in base_colors:
-            initial_colors.append(color.complementary_color())
-            initial_colors.extend(color.analogous_colors())
-            initial_colors.extend(color.triadic_colors())
+        tones = []
+        for i in range(-100, 1, 10):
+            for color in list(base_colors):
+                tones.append(color.tone(i))
+        base_colors.extend(list(set(tones)))
 
-        color_options = list(initial_colors)
-
-        for i in range(0, 100, 10):
-            for color in initial_colors:
-                color_options.append(color.tint(i))
-                color_options.append(color.tone(i))
-
+        color_options = list(set(base_colors))
         color_options = list(
             filter(lambda c: self.contrast(c, bg_color) >= 4.5, color_options))
-
-        color_options = list(set(color_options))
         color_options.sort(key=by_hue)
+
         return color_options
 
     def AAA_textcolors(self, bg_color):
