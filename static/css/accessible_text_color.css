@@ -13,6 +13,394 @@ form {
 input[type='color'] {
   height: 50px;
 }
+
+form#hue-chooser {
+  width: 100%;
+}
+
+div.radio-spacer {
+  width: 13.5px;
+  height: 25px;
+  margin: 0px;
+  margin-right: 7px;
+  display: inline-block;
+}
+
+div.hue-row {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.form-check {
+  margin: 0px;
+}
+
+label.form-check-label {
+  margin: 0px;
+}
+
+input[type='radio']#hue-all:after,
+input[type='radio']#hue-all:checked:after {
+  opacity: 100;
+  width: 25px;
+  height: 25px;
+  border-radius: 0px;
+  top: -5px;
+  left: -10px;
+  position: relative;
+  background-color: white;
+  content: 'All';
+  display: inline-block;
+  visibility: visible;
+  margin-right: 10px;
+}
+
+input[type='radio']#hue-all:checked:after {
+  border: 2px solid black;
+}
+
+input[type='radio'][name='hue-chooser']:after {
+  opacity: 100;
+  width: 25px;
+  height: 25px;
+  border-radius: 0px;
+  top: -5px;
+  left: -10px;
+  position: relative;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+}
+
+input[type='radio'][name='hue-chooser'] {
+  margin: -25px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+input[type='radio']#hue-0:after,
+input[type='radio']#hue-0:checked:after {
+  background-color: red;
+}
+
+input[type='radio']#hue-0:checked:after {
+  border: 2px solid cyan;
+}
+
+input[type='radio']#hue-10:after,
+input[type='radio']#hue-10:checked:after {
+  background-color: #ff2b00;
+}
+
+input[type='radio']#hue-10:checked:after {
+  border: 2px solid #00d5ff;
+}
+
+input[type='radio']#hue-20:after,
+input[type='radio']#hue-20:checked:after {
+  background-color: #ff5500;
+}
+
+input[type='radio']#hue-20:checked:after {
+  border: 2px solid #00aaff;
+}
+
+input[type='radio']#hue-30:after,
+input[type='radio']#hue-30:checked:after {
+  background-color: #ff8000;
+}
+
+input[type='radio']#hue-30:checked:after {
+  border: 2px solid #0080ff;
+}
+
+input[type='radio']#hue-40:after,
+input[type='radio']#hue-40:checked:after {
+  background-color: #ffaa00;
+}
+
+input[type='radio']#hue-40:checked:after {
+  border: 2px solid #0055ff;
+}
+
+input[type='radio']#hue-50:after,
+input[type='radio']#hue-50:checked:after {
+  background-color: #ffd500;
+}
+
+input[type='radio']#hue-50:checked:after {
+  border: 2px solid #002bff;
+}
+
+input[type='radio']#hue-60:after,
+input[type='radio']#hue-60:checked:after {
+  background-color: yellow;
+}
+
+input[type='radio']#hue-60:checked:after {
+  border: 2px solid blue;
+}
+
+input[type='radio']#hue-70:after,
+input[type='radio']#hue-70:checked:after {
+  background-color: #d5ff00;
+}
+
+input[type='radio']#hue-70:checked:after {
+  border: 2px solid #2b00ff;
+}
+
+input[type='radio']#hue-80:after,
+input[type='radio']#hue-80:checked:after {
+  background-color: #aaff00;
+}
+
+input[type='radio']#hue-80:checked:after {
+  border: 2px solid #5500ff;
+}
+
+input[type='radio']#hue-90:after,
+input[type='radio']#hue-90:checked:after {
+  background-color: #80ff00;
+}
+
+input[type='radio']#hue-90:checked:after {
+  border: 2px solid #8000ff;
+}
+
+input[type='radio']#hue-100:after,
+input[type='radio']#hue-100:checked:after {
+  background-color: #55ff00;
+}
+
+input[type='radio']#hue-100:checked:after {
+  border: 2px solid #aa00ff;
+}
+
+input[type='radio']#hue-110:after,
+input[type='radio']#hue-110:checked:after {
+  background-color: #2bff00;
+}
+
+input[type='radio']#hue-110:checked:after {
+  border: 2px solid #d500ff;
+}
+
+input[type='radio']#hue-120:after,
+input[type='radio']#hue-120:checked:after {
+  background-color: lime;
+}
+
+input[type='radio']#hue-120:checked:after {
+  border: 2px solid magenta;
+}
+
+input[type='radio']#hue-130:after,
+input[type='radio']#hue-130:checked:after {
+  background-color: #00ff2b;
+}
+
+input[type='radio']#hue-130:checked:after {
+  border: 2px solid #ff00d5;
+}
+
+input[type='radio']#hue-140:after,
+input[type='radio']#hue-140:checked:after {
+  background-color: #00ff55;
+}
+
+input[type='radio']#hue-140:checked:after {
+  border: 2px solid #ff00aa;
+}
+
+input[type='radio']#hue-150:after,
+input[type='radio']#hue-150:checked:after {
+  background-color: #00ff80;
+}
+
+input[type='radio']#hue-150:checked:after {
+  border: 2px solid #ff0080;
+}
+
+input[type='radio']#hue-160:after,
+input[type='radio']#hue-160:checked:after {
+  background-color: #00ffaa;
+}
+
+input[type='radio']#hue-160:checked:after {
+  border: 2px solid #ff0055;
+}
+
+input[type='radio']#hue-170:after,
+input[type='radio']#hue-170:checked:after {
+  background-color: #00ffd5;
+}
+
+input[type='radio']#hue-170:checked:after {
+  border: 2px solid #ff002b;
+}
+
+input[type='radio']#hue-180:after,
+input[type='radio']#hue-180:checked:after {
+  background-color: cyan;
+}
+
+input[type='radio']#hue-180:checked:after {
+  border: 2px solid red;
+}
+
+input[type='radio']#hue-190:after,
+input[type='radio']#hue-190:checked:after {
+  background-color: #00d5ff;
+}
+
+input[type='radio']#hue-190:checked:after {
+  border: 2px solid #ff2b00;
+}
+
+input[type='radio']#hue-200:after,
+input[type='radio']#hue-200:checked:after {
+  background-color: #00aaff;
+}
+
+input[type='radio']#hue-200:checked:after {
+  border: 2px solid #ff5500;
+}
+
+input[type='radio']#hue-210:after,
+input[type='radio']#hue-210:checked:after {
+  background-color: #0080ff;
+}
+
+input[type='radio']#hue-210:checked:after {
+  border: 2px solid #ff8000;
+}
+
+input[type='radio']#hue-220:after,
+input[type='radio']#hue-220:checked:after {
+  background-color: #0055ff;
+}
+
+input[type='radio']#hue-220:checked:after {
+  border: 2px solid #ffaa00;
+}
+
+input[type='radio']#hue-230:after,
+input[type='radio']#hue-230:checked:after {
+  background-color: #002bff;
+}
+
+input[type='radio']#hue-230:checked:after {
+  border: 2px solid #ffd500;
+}
+
+input[type='radio']#hue-240:after,
+input[type='radio']#hue-240:checked:after {
+  background-color: blue;
+}
+
+input[type='radio']#hue-240:checked:after {
+  border: 2px solid yellow;
+}
+
+input[type='radio']#hue-250:after,
+input[type='radio']#hue-250:checked:after {
+  background-color: #2b00ff;
+}
+
+input[type='radio']#hue-250:checked:after {
+  border: 2px solid #d5ff00;
+}
+
+input[type='radio']#hue-260:after,
+input[type='radio']#hue-260:checked:after {
+  background-color: #5500ff;
+}
+
+input[type='radio']#hue-260:checked:after {
+  border: 2px solid #aaff00;
+}
+
+input[type='radio']#hue-270:after,
+input[type='radio']#hue-270:checked:after {
+  background-color: #8000ff;
+}
+
+input[type='radio']#hue-270:checked:after {
+  border: 2px solid #80ff00;
+}
+
+input[type='radio']#hue-280:after,
+input[type='radio']#hue-280:checked:after {
+  background-color: #aa00ff;
+}
+
+input[type='radio']#hue-280:checked:after {
+  border: 2px solid #55ff00;
+}
+
+input[type='radio']#hue-290:after,
+input[type='radio']#hue-290:checked:after {
+  background-color: #d500ff;
+}
+
+input[type='radio']#hue-290:checked:after {
+  border: 2px solid #2bff00;
+}
+
+input[type='radio']#hue-300:after,
+input[type='radio']#hue-300:checked:after {
+  background-color: magenta;
+}
+
+input[type='radio']#hue-300:checked:after {
+  border: 2px solid lime;
+}
+
+input[type='radio']#hue-310:after,
+input[type='radio']#hue-310:checked:after {
+  background-color: #ff00d5;
+}
+
+input[type='radio']#hue-310:checked:after {
+  border: 2px solid #00ff2b;
+}
+
+input[type='radio']#hue-320:after,
+input[type='radio']#hue-320:checked:after {
+  background-color: #ff00aa;
+}
+
+input[type='radio']#hue-320:checked:after {
+  border: 2px solid #00ff55;
+}
+
+input[type='radio']#hue-330:after,
+input[type='radio']#hue-330:checked:after {
+  background-color: #ff0080;
+}
+
+input[type='radio']#hue-330:checked:after {
+  border: 2px solid #00ff80;
+}
+
+input[type='radio']#hue-340:after,
+input[type='radio']#hue-340:checked:after {
+  background-color: #ff0055;
+}
+
+input[type='radio']#hue-340:checked:after {
+  border: 2px solid #00ffaa;
+}
+
+input[type='radio']#hue-350:after,
+input[type='radio']#hue-350:checked:after {
+  background-color: #ff002b;
+}
+
+input[type='radio']#hue-350:checked:after {
+  border: 2px solid #00ffd5;
+}
  
 
  /*# sourceMappingURL= accessible_text_color.css.map */
