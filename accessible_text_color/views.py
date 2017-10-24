@@ -11,7 +11,8 @@ def main_view(request):
     page_data = {
         'page': {
             'title': 'WCAG Color Calculator'
-        }
+        },
+        'hue_range': list(range(0, 360, 10)),
     }
     return render(request,
                   "accessible_text_color/index.html",

@@ -41,13 +41,44 @@
                 </div>
             </form>
         </div>
-        <div id="approved-colors" class="col-12 col-sm-8">
-            <div id="aa-colors">
-
-            </div>
-
-            <div id="aaa-colors">
-
+        <div class="col-12 col-sm-8 d-flex flex-column align-items-center">
+            <form id="hue-chooser">
+                <fieldset class="">
+                    <legend>Select a hue to filter the approved colors:</legend>
+                    <div class="hue-row d-flex flex-row justify-content-center">
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input position-static" type="radio" name="hue-chooser" id="hue-all" value="all" aria-label="All hues">
+                            <span class="sr-only">All Hues</span>
+                       </label>
+                    </div>
+                    {% for hue in hue_range %}
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input position-static" type="radio" name="hue-chooser" id="hue-{{ hue }}" value="{{ hue }}" aria-label="Hue {{ hue }}">
+                            <span class="sr-only">
+                                Hue {{ hue }}
+                            </span>
+                        </label>
+                    </div>
+                    {% if hue|add:10|divisibleby:120 and hue != 0 %}
+                    </div>
+                    <div class="hue-row d-flex flex-row justify-content-center">
+                    <div class="radio-spacer"></div>
+                    {% else %}
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                </fieldset>
+            </form>
+            <div id="approved-colors">
+                <div id="aa-colors">
+                    
+                </div>
+                
+                <div id="aaa-colors">
+                    
+                </div>
             </div>
         </div>
     </div>
