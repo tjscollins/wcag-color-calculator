@@ -1,1 +1,1 @@
-web: python manage.py runserver
+web: gunicorn color_calculator/wsgi.py --log-file -
