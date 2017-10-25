@@ -10,7 +10,7 @@ from accessible_text_color.calculator import Color, TextColorCalculator
 def main_view(request):
     page_data = {
         'page': {
-            'title': 'WCAG Color Calculator'
+            'title': 'a11y Color Generator'
         },
         'hue_range': list(range(0, 360, 10)),
     }
