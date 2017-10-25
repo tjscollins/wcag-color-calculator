@@ -1232,6 +1232,8 @@ var colorConvert$2 = Object.freeze({
 
 var color = ( colorConvert$2 && colorConvert ) || colorConvert$2;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -1249,6 +1251,17 @@ var ColorValue = function () {
     }
 
     _createClass(ColorValue, [{
+        key: 'sortValue',
+        value: function sortValue() {
+            // Distance from black
+            var _rgb = _slicedToArray(this._rgb, 3),
+                r = _rgb[0],
+                g = _rgb[1],
+                b = _rgb[2];
+
+            return Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2);
+        }
+    }, {
         key: 'hex',
         value: function hex() {
             return color.rgb.hex(this._rgb);
@@ -1267,6 +1280,41 @@ var ColorValue = function () {
         key: 'hsl',
         value: function hsl() {
             return color.rgb.hsl(this._rgb);
+        }
+    }], [{
+        key: 'sortFn',
+        value: function sortFn(a, b) {
+            var _a$hsl = a.hsl(),
+                _a$hsl2 = _slicedToArray(_a$hsl, 3),
+                aH = _a$hsl2[0],
+                aS = _a$hsl2[1],
+                aL = _a$hsl2[2];
+
+            var _b$hsl = b.hsl(),
+                _b$hsl2 = _slicedToArray(_b$hsl, 3),
+                bH = _b$hsl2[0],
+                bS = _b$hsl2[1],
+                bL = _b$hsl2[2];
+
+            var hueTolerance = 10;
+            var satTolerance = 10;
+            var lumTolerance = 10;
+
+            if (aH < bH - hueTolerance) {
+                return -1;
+            } else if (aH > bH + hueTolerance) {
+                return 1;
+            } else if (aL < bL - lumTolerance) {
+                return -1;
+            } else if (aL > bL + lumTolerance) {
+                return 1;
+            } else if (aS < bS - satTolerance) {
+                return -1;
+            } else if (aS > bS + satTolerance) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }]);
 
@@ -1311,7 +1359,8 @@ function submitColors(event) {
 function buildColorList(_ref2) {
     var bgColor = _ref2.background_color,
         A2Colors = _ref2.aa_colors,
-        A3Colors = _ref2.aaa_colors;
+        A3Colors = _ref2.aaa_colors,
+        category = _ref2.category;
 
     console.log(bgColor, A2Colors, A3Colors);
 
@@ -1319,17 +1368,17 @@ function buildColorList(_ref2) {
     $('#' + target + '-colors').html('');
 
     if (target === 'aa') {
-        $('#' + target + '-colors').append('<h2>WCAG 2.0 Level ' + target.toUpperCase() + ' Color Combinations <br>' + A2Colors.length + ' Colors</h2>');
+        $('#' + target + '-colors').append('<h2>WCAG 2.0 Level ' + target.toUpperCase() + ' Color Combinations <br>' + A2Colors.length + ' ' + (category ? category[0].toUpperCase() + category.slice(1) : '') + ' Colors</h2>');
         A2Colors.forEach(resultsTemplate(bgColor, target));
     } else if (target === 'aaa') {
-        $('#' + target + '-colors').append('<h2>WCAG 2.0 Level ' + target.toUpperCase() + ' Color Combinations <br>' + A3Colors.length + ' Colors</h2>');
+        $('#' + target + '-colors').append('<h2>WCAG 2.0 Level ' + target.toUpperCase() + ' Color Combinations <br>' + A3Colors.length + ' ' + (category ? category[0].toUpperCase() + category.slice(1) : '') + ' Colors</h2>');
         A3Colors.forEach(resultsTemplate(bgColor, target));
     }
 }
 
 function resultsTemplate(bgColor, target) {
     return function (tColor) {
-        $('#' + target + '-colors').append('<div class="row color-sample border border-bottom-0 border-dark"><div class="col-12 text-center" style="background-color: #' + bgColor.hex() + ';"><p style="color: #' + tColor.hex() + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #' + bgColor.hex() + '; color: #' + tColor.hex() + ';"><p>Background Color: ' + bgColor.hex() + ' </p><p>Text Color: ' + tColor.hex() + ' </p><p>Closest Name: ' + tColor.css() + '</div></div>');
+        $('#' + target + '-colors').append('<div class="row color-sample" style="background-color: #' + bgColor.hex() + ';"><div class="col-12 text-center" style="background-color: #' + bgColor.hex() + ';"><p style="color: #' + tColor.hex() + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #' + bgColor.hex() + '; color: #' + tColor.hex() + ';"><p>Background Color: ' + bgColor.hex() + ' </p><p>Text Color: ' + tColor.hex() + '</div>');
     };
 }
 
@@ -1348,23 +1397,26 @@ function filterColors(_ref3) {
         return new ColorValue(_hex);
     }).filter(function (color$$1) {
         return color$$1.hsl()[0] === parseInt(value) || value === 'all';
-    });
+    }).sort(ColorValue.sortFn);
     aaa_colors = aaa_colors.map(function (_ref5) {
         var _hex = _ref5._hex;
         return new ColorValue(_hex);
     }).filter(function (color$$1) {
         return color$$1.hsl()[0] === parseInt(value) || value === 'all';
-    });
+    }).sort(ColorValue.sortFn);
     buildColorList({
         background_color: new ColorValue(_hex),
         aa_colors: aa_colors,
-        aaa_colors: aaa_colors
+        aaa_colors: aaa_colors,
+        category: color.hsl.keyword([parseInt(value), 100, 50])
     });
 }
 
-localStorage.clear();
-$('#bg-color-form').on('submit', submitColors);
-$('input[type="radio"][name="hue-chooser"]').on('change', filterColors);
+(function main() {
+    localStorage.clear();
+    $('#bg-color-form').on('submit', submitColors);
+    $('input[type="radio"][name="hue-chooser"]').on('change', filterColors);
+})();
 
 var src = {
 
