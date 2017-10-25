@@ -81,8 +81,6 @@ WSGI_APPLICATION = 'color_calculator.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-parse.uses_netloc.append("postgres")
-url = parse.urlparse(os.environ["DATABASE_URL"])
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
