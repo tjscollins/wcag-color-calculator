@@ -1,8 +1,11 @@
 // Base
+@import 'base/variables.scss';
 
 // Layout
 @import 'layout/color_calculator';
 
 // Modules
-@import 'module/main_content.scss';
+@import 'module/fonts.scss';
 @import 'module/forms.scss';
+@import 'module/main_content.scss';
+@import 'module/results.scss'; 

@@ -1,9 +1,47 @@
+/**
+ * Fonts
+ */
+/**
+ * Colors
+ */
 #color-calculator {
   margin-top: 50px;
 }
 
 h1 {
-  text-align: center;
+  font-size: 2.68rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 2.36rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 2.04rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.72rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.4rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+a, p {
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 form {
@@ -16,14 +54,6 @@ input[type='color'] {
 
 form#hue-chooser {
   width: 100%;
-}
-
-div.radio-spacer {
-  width: 13.5px;
-  height: 25px;
-  margin: 0px;
-  margin-right: 7px;
-  display: inline-block;
 }
 
 div.hue-row {
@@ -39,6 +69,17 @@ label.form-check-label {
   margin: 0px;
 }
 
+label, legend {
+  margin-bottom: 0.5rem;
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+}
+
+input[type='radio']#hue-all {
+  margin-right: px;
+}
+
 input[type='radio']#hue-all:after,
 input[type='radio']#hue-all:checked:after {
   opacity: 100;
@@ -48,11 +89,11 @@ input[type='radio']#hue-all:checked:after {
   top: -5px;
   left: -10px;
   position: relative;
-  background-color: white;
+  background-color: #333333;
+  color: beige;
   content: 'All';
   display: inline-block;
   visibility: visible;
-  margin-right: 10px;
 }
 
 input[type='radio']#hue-all:checked:after {
@@ -72,10 +113,16 @@ input[type='radio'][name='hue-chooser']:after {
   visibility: visible;
 }
 
-input[type='radio'][name='hue-chooser'] {
-  margin: -25px;
+div.radio-spacer {
+  width: 13.5px;
+  height: 25px;
+}
+
+input[type='radio'][name='hue-chooser'], div.radio-spacer {
+  display: inline-block;
   margin-top: 0px;
   margin-bottom: 0px;
+  margin-right: 15px;
 }
 
 input[type='radio']#hue-0:after,
@@ -400,6 +447,22 @@ input[type='radio']#hue-350:checked:after {
 
 input[type='radio']#hue-350:checked:after {
   border: 2px solid #00ffd5;
+}
+
+body {
+  background-color: #333333;
+  color: beige;
+}
+
+h1 {
+  text-align: center;
+}
+
+div.color-sample {
+  margin: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
 }
  
 
