@@ -10,14 +10,7 @@ form#hue-chooser {
     width: 100%;
 }
 
-$radio-size: 25px;
-div.radio-spacer {
-    width: $radio-size/2 + 1px;
-    height: $radio-size;
-    margin: 0px;
-    margin-right: 7px;
-    display: inline-block;
-}
+$hue-chooser-size: 25px;
 
 div.hue-row {
     // line-height: 0;
@@ -33,20 +26,30 @@ label.form-check-label {
     margin: 0px;
 }
 
+label, legend {
+   margin-bottom: 0.5rem;
+   font-family: $base-font-family;
+   font-weight: $base-font-weight;
+   font-size: $base-font-size * 0.75;
+}
+
+input[type='radio']#hue-all {
+    margin-right: px;
+}
 input[type='radio']#hue-all:after, 
 input[type='radio']#hue-all:checked:after {
     opacity: 100;
-    width: $radio-size;
-    height: $radio-size;
+    width: $hue-chooser-size;
+    height: $hue-chooser-size;
     border-radius: 0px;
     top: -5px;
     left: -10px;
     position: relative;
-    background-color: white;
+    background-color: $main-background;
+    color: $main-textcolor;
     content: 'All';
     display: inline-block;
     visibility: visible;
-    margin-right: 10px;
 }
 
 input[type='radio']#hue-all:checked:after {
@@ -55,8 +58,8 @@ input[type='radio']#hue-all:checked:after {
 
 input[type='radio'][name='hue-chooser']:after {
     opacity: 100;
-    width: $radio-size;
-    height: $radio-size;
+    width: $hue-chooser-size;
+    height: $hue-chooser-size;
     border-radius: 0px;
     top: -5px;
     left: -10px;
@@ -66,10 +69,17 @@ input[type='radio'][name='hue-chooser']:after {
     visibility: visible; 
 }
 
-input[type='radio'][name='hue-chooser'] {
-    margin: -$radio-size;
+div.radio-spacer {
+    width: $hue-chooser-size/2 + 1px;
+    height: $hue-chooser-size;
+}
+
+input[type='radio'][name='hue-chooser'], div.radio-spacer {
+    // margin: -$hue-chooser-size;
+    display: inline-block;
     margin-top: 0px;
     margin-bottom: 0px;
+    margin-right: 15px;
 }
 
 @for $hue from 0 to 36 {
