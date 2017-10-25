@@ -1,1 +1,1 @@
-web: gunicorn color_calculator/wsgi.py --log-file -
+web: gunicorn color_calculator.wsgi:application --log-file -
