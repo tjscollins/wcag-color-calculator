@@ -1,0 +1,13 @@
+@for $i from 1 to 6 {
+    h#{$i} {
+        font-size: $base-font-size * 2 - 0.32 * $i;
+        font-family: $base-font-family;
+        font-weight: $bold-weight;
+    }
+}
+
+a, p {
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-weight: $base-font-weight;
+}
