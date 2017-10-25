@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static custom_filters %}
 
 {% block css_block %}
 <link rel="stylesheet"
@@ -8,13 +8,14 @@
     crossorigin="anonymous">
 
 <link rel="stylesheet" href="{% static "css/accessible_text_color.css" %}" />
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
 {% endblock  %}
 
 {% block body_block %}
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>WCAG Color Calculator</h1>
+            <h1>WCAG Color Combination Generator</h1>
         </div>
     </div>
 
@@ -37,7 +38,7 @@
                     </label>                        
                 </fieldset>
                 <div class="form-group">
-                    <input type="submit" id="bg-submit" class="btn btn-primary form-control" value="Calculate Accessible Colors"/>
+                    <input type="submit" id="bg-submit" class="btn btn-primary form-control" value="Calculate Colors"/>
                 </div>
             </form>
         </div>
@@ -57,7 +58,7 @@
                         <label class="form-check-label">
                             <input class="form-check-input position-static" type="radio" name="hue-chooser" id="hue-{{ hue }}" value="{{ hue }}" aria-label="Hue {{ hue }}">
                             <span class="sr-only">
-                                Hue {{ hue }}
+                                {{ hue|color_name }}
                             </span>
                         </label>
                     </div>
