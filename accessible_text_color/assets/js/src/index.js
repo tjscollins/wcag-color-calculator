@@ -92,8 +92,6 @@ function buildColorList({
     aaa_colors: A3Colors,
     category    
 }) {
-    console.log(bgColor, A2Colors, A3Colors);
-
     let target = $('input[name=target-standards]:checked').val();
     $(`#${target}-colors`).html('');
 
@@ -109,16 +107,16 @@ function buildColorList({
 
 function resultsTemplate(bgColor, target) {
     return (tColor) => {
-        $(`#${target}-colors`).append(`<div class="row color-sample" style="background-color: #${bgColor.hex()};"><div class="col-12 text-center" style="background-color: #${bgColor.hex()};"><p style="color: #${tColor.hex()};">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #${bgColor.hex()}; color: #${tColor.hex()};"><p>Background Color: ${bgColor.hex()} </p><p>Text Color: ${tColor.hex()}</div>`);
+        $(`#${target}-colors`).append(`<div class="row color-sample" style="background-color: #${bgColor.hex()};"><div class="col-12 text-center" style="background-color: #${bgColor.hex()};"><p style="color: #${tColor.hex()};">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #${bgColor.hex()}; color: #${tColor.hex()};"><p>Text Color: ${tColor.hex()}</p><p>Background Color: ${bgColor.hex()}</p></div>`);
     }
-}
+} 
 
 function filterColors({
-    currentTarget,
+    currentTarget, 
     currentTarget: {
         value
     },
-    ...event
+    ...event,
 }) {
     let {
         background_color: {_hex},

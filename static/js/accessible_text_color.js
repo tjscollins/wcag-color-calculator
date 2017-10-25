@@ -1362,8 +1362,6 @@ function buildColorList(_ref2) {
         A3Colors = _ref2.aaa_colors,
         category = _ref2.category;
 
-    console.log(bgColor, A2Colors, A3Colors);
-
     var target = $('input[name=target-standards]:checked').val();
     $('#' + target + '-colors').html('');
 
@@ -1378,7 +1376,7 @@ function buildColorList(_ref2) {
 
 function resultsTemplate(bgColor, target) {
     return function (tColor) {
-        $('#' + target + '-colors').append('<div class="row color-sample" style="background-color: #' + bgColor.hex() + ';"><div class="col-12 text-center" style="background-color: #' + bgColor.hex() + ';"><p style="color: #' + tColor.hex() + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #' + bgColor.hex() + '; color: #' + tColor.hex() + ';"><p>Background Color: ' + bgColor.hex() + ' </p><p>Text Color: ' + tColor.hex() + '</div>');
+        $('#' + target + '-colors').append('<div class="row color-sample" style="background-color: #' + bgColor.hex() + ';"><div class="col-12 text-center" style="background-color: #' + bgColor.hex() + ';"><p style="color: #' + tColor.hex() + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #' + bgColor.hex() + '; color: #' + tColor.hex() + ';"><p>Text Color: ' + tColor.hex() + '</p><p>Background Color: ' + bgColor.hex() + '</p></div>');
     };
 }
 
