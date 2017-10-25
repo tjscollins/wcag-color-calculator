@@ -1,5 +1,28 @@
 const color = require('color-convert');
 
+class ColorValue {
+    constructor(hexColor) {
+        this._rgb = color.hex.rgb(hexColor);
+        this._hex = hexColor;
+    }
+
+    hex() {
+        return color.rgb.hex(this._rgb);
+    }
+
+    css() {
+        return color.rgb.keyword(this._rgb);
+    }
+
+    rgb() {
+        return this._rgb;
+    }
+
+    hsl() {
+        return color.rgb.hsl(this._rgb);
+    }
+}
+
 function submitColors(event) {
     event.preventDefault();
     let bgColor = $('#bg-color').val();
@@ -21,9 +44,9 @@ function submitColors(event) {
             aaa_colors
         }) => {
             let data = {
-                background_color,
-                aa_colors: [... new Set(aa_colors.map(color.hex.keyword))],
-                aaa_colors: [... new Set(aaa_colors.map(color.hex.keyword))]
+                background_color: new ColorValue(background_color),
+                aa_colors: aa_colors.map((color) => new ColorValue(color)),
+                aaa_colors: aaa_colors.map((color) => new ColorValue(color)),
             }
             localStorage.setItem('data', JSON.stringify(data));
             buildColorList(data);
@@ -53,7 +76,7 @@ function buildColorList({
 
 function resultsTemplate(bgColor, target) {
     return (tColor) => {
-        $(`#${target}-colors`).append(`<div class="row color-sample border border-bottom-0 border-dark"><div class="col-12 text-center" style="background-color: ${bgColor};"><p style="color: ${tColor};">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: ${bgColor}; color: ${tColor};"><p>Background Color: ${color.hex.keyword(bgColor)} </p><p>Text Color: ${tColor}</p></div></div>`);
+        $(`#${target}-colors`).append(`<div class="row color-sample border border-bottom-0 border-dark"><div class="col-12 text-center" style="background-color: #${bgColor.hex()};"><p style="color: #${tColor.hex()};">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #${bgColor.hex()}; color: #${tColor.hex()};"><p>Background Color: ${bgColor.hex()} </p><p>Text Color: ${tColor.hex()} </p><p>Closest Name: ${tColor.css()}</div></div>`);
     }
 }
 
@@ -64,20 +87,21 @@ function filterColors({
     },
     ...event
 }) {
-    let selectedColor = color.hsl.rgb(parseInt(value), 100, 50);
     let {
-        background_color,
+        background_color: {_hex},
         aa_colors,
         aaa_colors
     } = JSON.parse(localStorage.getItem('data'));
-    aa_colors = aa_colors.filter((kColor) => {
-        return color.keyword.hsl(kColor)[0] === parseInt(value) || value === 'all';
-    });
-    aaa_colors = aaa_colors.filter((kColor) => {
-        return color.keyword.hsl(kColor)[0] === parseInt(value) || value === 'all';
+    aa_colors = aa_colors.map(({_hex}) => new ColorValue(_hex))
+        .filter(color => {
+            return color.hsl()[0] === parseInt(value) || value === 'all';
+        });
+    aaa_colors = aaa_colors.map(({_hex}) => new ColorValue(_hex))
+    .filter(color => {
+        return color.hsl()[0] === parseInt(value) || value === 'all';
     });
     buildColorList({
-        background_color,
+        background_color: new ColorValue(_hex),
         aa_colors,
         aaa_colors
     });

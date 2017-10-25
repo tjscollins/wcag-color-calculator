@@ -1232,11 +1232,46 @@ var colorConvert$2 = Object.freeze({
 
 var color = ( colorConvert$2 && colorConvert ) || colorConvert$2;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
+
+var ColorValue = function () {
+    function ColorValue(hexColor) {
+        _classCallCheck(this, ColorValue);
+
+        this._rgb = color.hex.rgb(hexColor);
+        this._hex = hexColor;
+    }
+
+    _createClass(ColorValue, [{
+        key: 'hex',
+        value: function hex() {
+            return color.rgb.hex(this._rgb);
+        }
+    }, {
+        key: 'css',
+        value: function css() {
+            return color.rgb.keyword(this._rgb);
+        }
+    }, {
+        key: 'rgb',
+        value: function rgb() {
+            return this._rgb;
+        }
+    }, {
+        key: 'hsl',
+        value: function hsl() {
+            return color.rgb.hsl(this._rgb);
+        }
+    }]);
+
+    return ColorValue;
+}();
 
 function submitColors(event) {
     event.preventDefault();
@@ -1259,9 +1294,13 @@ function submitColors(event) {
                 aaa_colors = _ref.aaa_colors;
 
             var data = {
-                background_color: background_color,
-                aa_colors: [].concat(_toConsumableArray(new Set(aa_colors.map(color.hex.keyword)))),
-                aaa_colors: [].concat(_toConsumableArray(new Set(aaa_colors.map(color.hex.keyword))))
+                background_color: new ColorValue(background_color),
+                aa_colors: aa_colors.map(function (color$$1) {
+                    return new ColorValue(color$$1);
+                }),
+                aaa_colors: aaa_colors.map(function (color$$1) {
+                    return new ColorValue(color$$1);
+                })
             };
             localStorage.setItem('data', JSON.stringify(data));
             buildColorList(data);
@@ -1290,7 +1329,7 @@ function buildColorList(_ref2) {
 
 function resultsTemplate(bgColor, target) {
     return function (tColor) {
-        $('#' + target + '-colors').append('<div class="row color-sample border border-bottom-0 border-dark"><div class="col-12 text-center" style="background-color: ' + bgColor + ';"><p style="color: ' + tColor + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: ' + bgColor + '; color: ' + tColor + ';"><p>Background Color: ' + color.hex.keyword(bgColor) + ' </p><p>Text Color: ' + tColor + '</p></div></div>');
+        $('#' + target + '-colors').append('<div class="row color-sample border border-bottom-0 border-dark"><div class="col-12 text-center" style="background-color: #' + bgColor.hex() + ';"><p style="color: #' + tColor.hex() + ';">The quick brown fox jumps over the lazy dog.</p></div><div class="col-12 d-flex flex-row justify-content-around" style="background-color: #' + bgColor.hex() + '; color: #' + tColor.hex() + ';"><p>Background Color: ' + bgColor.hex() + ' </p><p>Text Color: ' + tColor.hex() + ' </p><p>Closest Name: ' + tColor.css() + '</div></div>');
     };
 }
 
@@ -1299,21 +1338,25 @@ function filterColors(_ref3) {
         value = _ref3.currentTarget.value,
         event = _objectWithoutProperties(_ref3, ['currentTarget', 'currentTarget']);
 
-    var selectedColor = color.hsl.rgb(parseInt(value), 100, 50);
-
     var _JSON$parse = JSON.parse(localStorage.getItem('data')),
-        background_color = _JSON$parse.background_color,
+        _hex = _JSON$parse.background_color._hex,
         aa_colors = _JSON$parse.aa_colors,
         aaa_colors = _JSON$parse.aaa_colors;
 
-    aa_colors = aa_colors.filter(function (kColor) {
-        return color.keyword.hsl(kColor)[0] === parseInt(value) || value === 'all';
+    aa_colors = aa_colors.map(function (_ref4) {
+        var _hex = _ref4._hex;
+        return new ColorValue(_hex);
+    }).filter(function (color$$1) {
+        return color$$1.hsl()[0] === parseInt(value) || value === 'all';
     });
-    aaa_colors = aaa_colors.filter(function (kColor) {
-        return color.keyword.hsl(kColor)[0] === parseInt(value) || value === 'all';
+    aaa_colors = aaa_colors.map(function (_ref5) {
+        var _hex = _ref5._hex;
+        return new ColorValue(_hex);
+    }).filter(function (color$$1) {
+        return color$$1.hsl()[0] === parseInt(value) || value === 'all';
     });
     buildColorList({
-        background_color: background_color,
+        background_color: new ColorValue(_hex),
         aa_colors: aa_colors,
         aaa_colors: aaa_colors
     });
