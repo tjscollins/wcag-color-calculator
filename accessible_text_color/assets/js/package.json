@@ -17,7 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-better-rollup": "^1.1.1",
     "gulp-closure-compiler": "^0.4.0",
-    "gulp-livereload": "^3.8.1",
+    "gulp-livereload": "^4.0.2",
     "gulp-rename": "^1.2.2",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.4",
